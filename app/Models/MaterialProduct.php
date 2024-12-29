@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class MaterialProduct extends Model
 {
     //
     protected $guarded = [
         'id',
     ];
-
-    public function Category()
+    public function MaterialProduct()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Product::class);
     }
 }
