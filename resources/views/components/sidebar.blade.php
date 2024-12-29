@@ -29,9 +29,9 @@
 					</i> <span>Dashboard</span>
 				</a>
 			</li>
-			<li class="{{ Request::is('credits') ? 'active' : '' }}">
-				<a class="nav-link" href="{{ url('credits') }}"><i class="fas fa-pencil-ruler">
-					</i> <span>Credits</span>
+			<li class="{{ Request::is('pages.production.index') ? 'active' : '' }}">
+				<a class="nav-link" href="{{ route('production.index') }}"><i class="fas fa-pencil-ruler">
+					</i> <span>Production</span>
 				</a>
 			</li>
 		</ul>
