@@ -25,19 +25,24 @@
 
 
             <li class="{{ Request::is('pages.dashboard') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('dashboard') }}"><i class="fas fa-fire">
+                <a class="nav-link" href="{{ route('dashboard') }}"><i class="fa-solid fa-house">
                     </i> <span>Dashboard</span>
                 </a>
             </li>
             <li class="{{ Request::is('pages.production.index') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('production.index') }}"><i class="fas fa-pencil-ruler">
+                <a class="nav-link" href="{{ route('user.index') }}"><i class="fa-solid fa-pencil-ruler">
+                    </i> <span>User</span>
+                </a>
+            </li>
+            <li class="{{ Request::is('pages.production.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('production.index') }}"><i class="fa-solid fa-pencil-ruler">
                     </i> <span>Production</span>
                 </a>
             </li>
         </ul>
 
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">
-            <a href="#" class="btn btn-primary btn-lg btn-block btn-icon-split">
+            <a href="{{ route('logout') }}" class="btn btn-primary btn-lg btn-block btn-icon-split">
                 <i class="fas fa-rocket"></i> LOGOUT
             </a>
         </div>
