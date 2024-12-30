@@ -13,6 +13,10 @@ class MaterialProductController extends Controller
     public function index()
     {
         //
+        $materials = MaterialProduct::all();
+        return view('pages.production.material.index', [
+            'materials' => $materials
+        ]);
     }
 
     /**

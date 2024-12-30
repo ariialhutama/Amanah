@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MaterialProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\UserController;
@@ -21,4 +22,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('/category', CategoryController::class);
     Route::resource('/pruduct', ProductController::class);
     Route::resource('/user', UserController::class);
+    Route::resource('/material', MaterialProductController::class);
 });

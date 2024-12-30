@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('concentration');
-            $table->unsignedBigInteger('jumlah');
+            $table->unsignedBigInteger('amount');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
