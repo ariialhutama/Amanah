@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'ADMIN ASYARI',
             'email' => 'ariialhutama@gmail.com',
             'password' => bcrypt('12345678'),
-            'role' => 'admin'
+            'role' => 'admin',
+            'phone' => '0895800975006'
         ]);
     }
 }

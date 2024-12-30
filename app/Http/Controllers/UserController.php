@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -20,6 +21,7 @@ class UserController extends Controller
             ->paginate(5);
         return view('pages.user.index', [
             'users' => $users,
+            // 'type_menu' => 'user'
         ]);
     }
 
@@ -29,6 +31,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('pages.user.create');
     }
 
     /**
@@ -37,6 +40,17 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'role' => 'required',
+            'phone' => 'required',
+        ]);
+        DB::beginTransaction();
+        $newValidated = User::create($validated);
+        DB::commit();
+        return redirect()->route('user.index')->with(key: 'added', value: true);
     }
 
     /**
@@ -50,24 +64,49 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        return view('pages.user.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
         //
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'role' => 'required',
+            'phone' => 'required',
+        ]);
+        DB::beginTransaction();
+        $user->update($validated);
+        DB::commit();
+        return redirect()->route('user.index')->with(key: 'added', value: true);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        // try {
+        //     $users->delete();
+        //     return redirect()->back();
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     $error = ValidationException::withMessages([
+        //         'system_error' => ['System error!', $e->getMessage()],
+        //     ]);
+        //     throw $error;
+        // }
+
+        $user->delete();
+        return redirect()->back();
     }
 }

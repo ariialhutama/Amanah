@@ -24,22 +24,36 @@
 			</li> --}}
 
 
-            <li class="{{ Request::is('pages.dashboard') ? 'active' : '' }}">
+            <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('dashboard') }}"><i class="fa-solid fa-house">
                     </i> <span>Dashboard</span>
                 </a>
             </li>
-            <li class="{{ Request::is('pages.production.index') ? 'active' : '' }}">
+            <li class="{{ Request::is('user') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.index') }}"><i class="fa-solid fa-pencil-ruler">
                     </i> <span>User</span>
                 </a>
             </li>
-            <li class="{{ Request::is('pages.production.index') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('production.index') }}"><i class="fa-solid fa-pencil-ruler">
+            {{-- <li class="{{ Request::is('production') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('production.index') }}"><i class="fa-solid  fa-user-secret">
                     </i> <span>Production</span>
                 </a>
+            </li> --}}
+            <li class="menu-header">Production</li>
+            <li class="nav-item dropdown {{ Request::is('production') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Production</span></a>
+                <ul class="dropdown-menu">
+                    <li class='{{ Request::is('production') ? 'active' : '' }}'>
+                        <a class="nav-link" href="{{ route('production.index') }}">Material</a>
+                    </li>
+
+                </ul>
             </li>
+
+
         </ul>
+
+
 
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">
             <a href="{{ route('logout') }}" class="btn btn-primary btn-lg btn-block btn-icon-split">

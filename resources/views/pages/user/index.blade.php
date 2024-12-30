@@ -85,7 +85,7 @@
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href='{{ route('user.edit', $user->id) }}'
-                                                            class="btn btn-sm btn-info btn-icon">
+                                                            class="btn btn-sm btn-success btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
@@ -95,9 +95,8 @@
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
                                                                 value="{{ csrf_token() }}" />
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete"
-                                                                id="swal-6">
-                                                                <i class="fas fa-times"></i> Delete
+                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                                <i class="fas fa-trash"></i> Delete
                                                             </button>
                                                         </form>
                                                     </div>
@@ -108,9 +107,9 @@
 
                                     </table>
                                 </div>
-                                {{-- <div class="float-right">
+                                <div class="float-right">
                                     {{ $users->withQueryString()->links() }}
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
