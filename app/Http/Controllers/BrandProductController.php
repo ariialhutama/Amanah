@@ -13,6 +13,9 @@ class BrandProductController extends Controller
     public function index()
     {
         //
+        $brandProduct = BrandProduct::paginate(5);
+        return view('pages.brand.index', [
+            'brand_products' => $brandProduct,]);
     }
 
     /**
@@ -21,6 +24,7 @@ class BrandProductController extends Controller
     public function create()
     {
         //
+        return view('pages.brand.create');
     }
 
     /**
@@ -29,6 +33,9 @@ class BrandProductController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
     }
 
     /**
@@ -61,5 +68,8 @@ class BrandProductController extends Controller
     public function destroy(BrandProduct $brandProduct)
     {
         //
+        $brandProduct->delete();
+
+        return redirect()->back();
     }
 }

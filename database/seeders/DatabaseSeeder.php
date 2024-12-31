@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MaterialProduct;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,5 +23,14 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'phone' => '0895800975006'
         ]);
+
+        $this->call([
+            BrandProductSeeder::class,
+         ]);
+        $this->call([
+            MaterialProductSeeder::class,
+         ]);
     }
+
+   
 }

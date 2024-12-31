@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('formulas', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignId('brand_id')->constrained('brand_products')->onDelete('cascade');
+            $table->foreignId('material_id')->constrained('material_products')->onDelete('cascade');
             $table->timestamps();
         });
     }
