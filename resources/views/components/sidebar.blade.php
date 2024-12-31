@@ -50,15 +50,20 @@
 					<li class='{{ Request::is('material') ? 'active' : '' }}'>
 						<a class="nav-link" href="{{ route('material.index') }}">Daftar Material</a>
 					</li>
-					<li class='{{ Request::is('material') ? 'active' : '' }}'>
+					{{-- <li class='{{ Request::is('material') ? 'active' : '' }}'>
 						<a class="nav-link" href="{{ route('material.index') }}">Daftar formula</a>
-					</li>
+					</li> --}}
 				</ul>
 			</li>
 
 			<li class="{{ Request::is('brand') ? 'active' : '' }}">
 				<a class="nav-link" href="{{ route('brand.index') }}"><i class="fa-solid fa-pencil-ruler">
 					</i> <span>Brand</span>
+				</a>
+			</li>
+			<li class="{{ Request::is('formula') ? 'active' : '' }}">
+				<a class="nav-link" href="{{ route('formula.index') }}"><i class="fa-solid fa-water">
+					</i> <span>Daftar Formula</span>
 				</a>
 			</li>
 		</ul>

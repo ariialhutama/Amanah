@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BrandProduct;
 use App\Models\formula;
+use App\Models\MaterialProduct;
 use Illuminate\Http\Request;
 
 class FormulaController extends Controller
@@ -13,6 +15,14 @@ class FormulaController extends Controller
     public function index()
     {
         //
+        $materialProduct = MaterialProduct::all();
+        // $brandProduct = BrandProduct::all();
+        $formula = formula::paginate(5);
+        return view('pages.formula.index',[
+            'formula' => $formula,
+            // 'brandProduct' => $brandProduct,
+            'materialProduct' => $materialProduct,
+        ]);
     }
 
     /**
@@ -21,6 +31,7 @@ class FormulaController extends Controller
     public function create()
     {
         //
+        return view('pages.formula.create');
     }
 
     /**
@@ -61,5 +72,8 @@ class FormulaController extends Controller
     public function destroy(formula $formula)
     {
         //
+        $formula->delete();
+
+        return redirect()->back();
     }
 }
