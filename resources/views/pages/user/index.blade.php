@@ -74,12 +74,6 @@
                                                 </td>
                                                 <td>
                                                     {{ $user->role }}
-                                                    {{-- @if ($user->role)
-                                                    @endif --}}
-
-
-
-                                                    {{-- {{ $user->role }} --}}
                                                 </td>
                                                 <td>{{ $user->created_at }}</td>
                                                 <td>

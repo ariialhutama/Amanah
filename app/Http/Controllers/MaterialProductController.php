@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\MaterialProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class MaterialProductController extends Controller
 {
@@ -12,10 +14,10 @@ class MaterialProductController extends Controller
      */
     public function index()
     {
-        //
-        $materials = MaterialProduct::all();
+
+        $materialProduct = MaterialProduct::paginate(5);
         return view('pages.production.material.index', [
-            'materials' => $materials
+            'material_products' => $materialProduct,
         ]);
     }
 
@@ -25,6 +27,7 @@ class MaterialProductController extends Controller
     public function create()
     {
         //
+        return view('pages.production.material.create');
     }
 
     /**
@@ -33,6 +36,24 @@ class MaterialProductController extends Controller
     public function store(Request $request)
     {
         //
+        $validate = $request->validate([
+            'name' => 'required',
+            'concentration' => 'required|integer',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $newValidate = MaterialProduct::create($validate);
+            DB::commit();
+            return redirect()->route('material.index');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            $error = ValidationException::withMessages([
+                'system_error' => ['System error!' . $e->getMessage()],
+            ]);
+            throw $error;
+        }
     }
 
     /**
@@ -64,6 +85,17 @@ class MaterialProductController extends Controller
      */
     public function destroy(MaterialProduct $materialProduct)
     {
-        //
+        $materialProduct->delete();
+        return redirect()->back();
+        // try {
+        //     $materialProduct->delete();
+        //     return redirect()->back();
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     $error = ValidationException::withMessages([
+        //         'system_error' => ['System error!', $e->getMessage()],
+        //     ]);
+        //     throw $error;
+        // }
     }
 }

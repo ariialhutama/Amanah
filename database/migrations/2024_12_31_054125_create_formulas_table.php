@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('material_products', function (Blueprint $table) {
+        Schema::create('formulas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('concentration');
-            // $table->unsignedBigInteger('amount');
-            // $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('material_products');
+        Schema::dropIfExists('formulas');
     }
 };

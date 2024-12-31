@@ -8,7 +8,7 @@ class MaterialProduct extends Model
 {
     //
     protected $guarded = [
-        'id',
+        'id'
     ];
     public function MaterialProduct()
     {

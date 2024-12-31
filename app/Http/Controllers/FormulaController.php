@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Production;
+use App\Models\formula;
 use Illuminate\Http\Request;
 
-class ProductionController extends Controller
+class FormulaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.production.perhitungan.index');
+        //
     }
 
     /**
@@ -34,16 +34,15 @@ class ProductionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Production $Production)
+    public function show(formula $formula)
     {
         //
-
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Production $Production)
+    public function edit(formula $formula)
     {
         //
     }
@@ -51,7 +50,7 @@ class ProductionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Production $Production)
+    public function update(Request $request, formula $formula)
     {
         //
     }
@@ -59,7 +58,7 @@ class ProductionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Production $Production)
+    public function destroy(formula $formula)
     {
         //
     }
