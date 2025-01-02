@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::paginate(5);
-        return view('pages.category.index',[
-            'categories' => $categories
+        //
+        $brands = Brand::paginate(5);
+        return view('pages.brand.index', [
+            'brands' => $brands,
         ]);
     }
 
@@ -23,7 +24,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        
+
+        return view('pages.brand.create');
     }
 
     /**
@@ -37,7 +39,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Brand $brand)
     {
         //
     }
@@ -45,7 +47,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Brand $brand)
     {
         //
     }
@@ -53,7 +55,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Brand $brand)
     {
         //
     }
@@ -61,7 +63,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Brand $brand)
     {
         //
     }

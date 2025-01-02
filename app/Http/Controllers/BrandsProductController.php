@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BrandProduct;
+use App\Models\BrandsProduct;
 use Illuminate\Http\Request;
 
-class BrandProductController extends Controller
+class BrandsProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +13,7 @@ class BrandProductController extends Controller
     public function index()
     {
         //
-        $brandProduct = BrandProduct::paginate(5);
-        return view('pages.brand.index', [
-            'brand_products' => $brandProduct,]);
+
     }
 
     /**
@@ -24,7 +22,6 @@ class BrandProductController extends Controller
     public function create()
     {
         //
-        return view('pages.brand.create');
     }
 
     /**
@@ -33,15 +30,15 @@ class BrandProductController extends Controller
     public function store(Request $request)
     {
         //
-        $validated = $request->validate([
-            'name' => 'required',
-        ]);
+        // $validated = $request->validate([
+        //     'name' => 'required',
+        // ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(BrandProduct $brandProduct)
+    public function show(BrandsProduct $brandProduct)
     {
         //
     }
@@ -49,7 +46,7 @@ class BrandProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(BrandProduct $brandProduct)
+    public function edit(BrandsProduct $brandProduct)
     {
         //
     }
@@ -57,7 +54,7 @@ class BrandProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, BrandProduct $brandProduct)
+    public function update(Request $request, BrandsProduct $brandProduct)
     {
         //
     }
@@ -65,11 +62,9 @@ class BrandProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BrandProduct $brandProduct)
+    public function destroy(BrandsProduct $brandProduct)
     {
         //
-        $brandProduct->delete();
 
-        return redirect()->back();
     }
 }

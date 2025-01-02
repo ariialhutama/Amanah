@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\BrandProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FormulaController;
@@ -22,9 +23,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/production', ProductionController::class);
     Route::resource('/category', CategoryController::class);
-    Route::resource('/pruduct', ProductController::class);
+    Route::resource('/product', ProductController::class);
     Route::resource('/user', UserController::class);
     Route::resource('/material', MaterialProductController::class);
-    Route::resource('/brand', BrandProductController::class);
+    Route::resource('/brand', BrandController::class);
     Route::resource('/formula', FormulaController::class);
 });
