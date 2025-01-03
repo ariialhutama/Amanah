@@ -56,7 +56,7 @@
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
-                                        @foreach ($products as $product)
+                                        @forelse ($products as $product)
                                             <tr>
 
                                                 <td>{{ $product->name }}
@@ -76,18 +76,18 @@
                                                 <td>{{ $product->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('product.show', $product->id) }}'
+                                                        <a href='{{ route('product.show', $product) }}'
                                                             class="btn btn-sm btn-primary btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Detail
                                                         </a>
-                                                        <a href='{{ route('product.edit', $product->id) }}'
+                                                        <a href='{{ route('product.edit', $product) }}'
                                                             class="btn btn-sm btn-success btn-icon ml-2">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('product.destroy', $product->id) }}"
+                                                        <form action="{{ route('product.destroy', $product) }}"
                                                             method="POST" class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -99,12 +99,16 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <p class="d-flex justify-content-center align-items-center section-title">
+                                                <span class="text-center text-danger">Silahkan Tambah Product</span>
+                                            </p>
+                                        @endforelse
                                     </table>
                                 </div>
-                                {{-- <div class="float-right">
+                                <div class="float-right">
                                     {{ $products->withQueryString()->links() }}
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
