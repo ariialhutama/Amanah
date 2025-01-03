@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BrandProduct;
 use App\Models\formula;
-use App\Models\MaterialProduct;
+use App\Models\Material;
 use Illuminate\Http\Request;
 
 class FormulaController extends Controller
@@ -15,13 +15,13 @@ class FormulaController extends Controller
     public function index()
     {
         //
-        $materialProduct = MaterialProduct::all();
+        $material = Material::all();
         // $brandProduct = BrandProduct::all();
         $formula = formula::paginate(5);
         return view('pages.formula.index',[
             'formula' => $formula,
             // 'brandProduct' => $brandProduct,
-            'materialProduct' => $materialProduct,
+            'material' => $material,
         ]);
     }
 

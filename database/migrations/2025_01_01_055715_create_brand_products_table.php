@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('brands_products', function (Blueprint $table) {
             $table->id();
             // $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('brand_id')->constrained()->onDelete('cascade');
             // $table->string('name');
             // $table->string('alamat');
             // $table->string('phone');

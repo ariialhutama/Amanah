@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class formula extends Model
+class Formula extends Model
 {
     //
     use HasFactory;
@@ -15,11 +15,12 @@ class formula extends Model
 
     public function brandProduct()
     {
-        return $this->belongsToMany(BrandProduct::class);
+        return $this->belongsToMany(brandsProduct::class);
     }
 
-    public function materialProduct()
+
+    public function Material()
     {
-        return $this->belongsToMany(MaterialProduct::class);
+        return $this->belongsToMany(Material::class, 'materials_formulas');
     }
 }

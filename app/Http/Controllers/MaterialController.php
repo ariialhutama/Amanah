@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MaterialProduct;
+use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
-class MaterialProductController extends Controller
+class MaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class MaterialProductController extends Controller
     public function index()
     {
 
-        $materialProduct = MaterialProduct::paginate(5);
+        $material = Material::paginate(5);
         return view('pages.production.material.index', [
-            'material_products' => $materialProduct,
+            'material_products' => $material,
         ]);
     }
 
@@ -44,7 +44,7 @@ class MaterialProductController extends Controller
         DB::beginTransaction();
 
         try {
-            $newValidate = MaterialProduct::create($validate);
+            $newValidate = Material::create($validate);
             DB::commit();
             return redirect()->route('material.index');
         } catch (\Throwable $e) {
@@ -59,7 +59,7 @@ class MaterialProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MaterialProduct $materialProduct)
+    public function show(Material $material)
     {
         //
     }
@@ -67,7 +67,7 @@ class MaterialProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MaterialProduct $materialProduct)
+    public function edit(Material $material)
     {
         //
     }
@@ -75,7 +75,7 @@ class MaterialProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MaterialProduct $materialProduct)
+    public function update(Request $request, Material $material)
     {
         //
     }
@@ -83,12 +83,12 @@ class MaterialProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MaterialProduct $materialProduct)
+    public function destroy(Material $material)
     {
-        $materialProduct->delete();
+        $material->delete();
         return redirect()->back();
         // try {
-        //     $materialProduct->delete();
+        //     $material->delete();
         //     return redirect()->back();
         // } catch (\Exception $e) {
         //     DB::rollBack();

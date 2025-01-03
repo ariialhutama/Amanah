@@ -4,7 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\BrandProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FormulaController;
-use App\Http\Controllers\MaterialProductController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\UserController;
@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/product', ProductController::class);
     // Route::resource('/product/details/{product:slug}', ProductController::class);
     Route::resource('/user', UserController::class);
-    Route::resource('/material', MaterialProductController::class);
+    Route::resource('/material', MaterialController::class);
     Route::resource('/brand', BrandController::class);
     Route::resource('/formula', FormulaController::class);
 });

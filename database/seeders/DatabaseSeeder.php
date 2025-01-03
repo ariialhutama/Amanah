@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            MaterialProductSeeder::class,
+            MaterialSeeder::class,
         ]);
 
         $this->call([
