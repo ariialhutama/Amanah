@@ -8,22 +8,6 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            {{-- <li class="nav-item dropdown {{ $type_menu === 'dashboard' ? 'active' : '' }}"> --}}
-            {{-- <li class="nav-item dropdown">
-				<a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-
-			</li> --}}
-            {{-- <li class="nav-item dropdown">
-				<a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-				<ul class="dropdown-menu">
-					<li class='{{ Request::is('dashboard') ? 'active' : '' }}'>
-						<a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
-					</li>
-
-				</ul>
-			</li> --}}
-
-
             <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('dashboard') }}"><i class="fa-solid fa-house">
                     </i> <span>Dashboard</span>
@@ -34,11 +18,6 @@
                     </i> <span>User</span>
                 </a>
             </li>
-            {{-- <li class="{{ Request::is('production') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('production.index') }}"><i class="fa-solid  fa-user-secret">
-                    </i> <span>Production</span>
-                </a>
-            </li> --}}
             <li class="menu-header">Production</li>
             <li class="nav-item dropdown {{ Request::is('production') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Production</span></a>
@@ -65,21 +44,21 @@
 
             <li class="menu-header">Formula</li>
             <li class="{{ Request::is('formula') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('formula.index') }}"><i class="fa-solid fa-user">
+                <a class="nav-link" href="{{ route('formula.index') }}"><i class="fa-solid fa-water">
                     </i> <span>Daftar Formula</span>
                 </a>
             </li>
 
-            <li class="menu-header">Product</li>
-            <li class="{{ Request::is('product') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('product.index') }}"><i class="fa-solid fa-home">
+            <li class="menu-header">Pruduct</li>
+            <li class="{{ Request::is('pruduct') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('product.index') }}"><i class="fa-solid fa-water">
                     </i> <span>Daftar Product</span>
                 </a>
             </li>
             <li class="menu-header">Category</li>
             <li class="{{ Request::is('category') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('category.index') }}"><i class="fa-solid fa-fire">
-                    </i> <span>Category</span>
+                <a class="nav-link" href="{{ route('category.index') }}"><i class="fa-solid fa-water">
+                    </i> <span>Daftar Catetory</span>
                 </a>
             </li>
         </ul>

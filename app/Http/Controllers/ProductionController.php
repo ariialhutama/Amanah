@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Formula;
+use App\Models\Material;
 use App\Models\Production;
 use Illuminate\Http\Request;
 
@@ -10,9 +12,16 @@ class ProductionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Formula $formula, Material $material)
     {
-        return view('pages.production.perhitungan.index');
+        // $material=Material::findOrFail($material->id);
+        $formulas = Formula::all();
+        $materials = Material::all();
+        // $formula = Formula::findOrFail($formula->id);
+        return view('pages.production.perhitungan.index', [
+            'materials' => $materials,
+            'formulas' => $formulas
+        ]);
     }
 
     /**
