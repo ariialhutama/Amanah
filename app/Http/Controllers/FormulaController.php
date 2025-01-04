@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\BrandProduct;
-use App\Models\formula;
+use App\Models\Formula;
 use App\Models\Material;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class FormulaController extends Controller
 {
@@ -17,7 +20,7 @@ class FormulaController extends Controller
         //
         $material = Material::all();
         // $brandProduct = BrandProduct::all();
-        $formula = formula::paginate(5);
+        $formula = Formula::paginate(5);
         return view('pages.formula.index',[
             'formula' => $formula,
             // 'brandProduct' => $brandProduct,
@@ -31,7 +34,12 @@ class FormulaController extends Controller
     public function create()
     {
         //
-        return view('pages.formula.create');
+        $formulas = Formula::all();
+        $materials = Material::all();
+        return view('pages.formula.create',[
+            'products' => $formulas,
+            'materials' => $materials
+        ]);
     }
 
     /**
@@ -39,7 +47,24 @@ class FormulaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        DB::beginTransaction();
+        try {
+            
+            $newvalidated = Formula::create($validated);
+
+            $newvalidated->Material()->attach($request->material);
+            DB::commit();
+            return redirect()->route('formula.index')->with(key: 'added', value: true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $error = ValidationException::withMessages([
+                'system_error' => ['System error!' . $e->getMessage()],
+            ]);
+            throw $error;
+        }
     }
 
     /**
@@ -47,7 +72,23 @@ class FormulaController extends Controller
      */
     public function show(formula $formula)
     {
-        //
+        $formulas = Formula::findOrFail($formula->id);
+        $total = 0;
+        $total = $formula->Material->sum('concentration');
+        $total_amount = $formula->Material->sum('concentration') / 100;
+
+
+        $hitung = $formula->Material->sum('concentration') / 100;
+               
+        return view('pages.formula.detail', [
+
+            'formulas' => $formulas,
+            'total' => $total,
+            'total_amount' => $total_amount,
+            'hitung' => $hitung
+
+
+        ]);
     }
 
     /**
@@ -73,7 +114,7 @@ class FormulaController extends Controller
     {
         //
         $formula->delete();
-
+        $formula->Material()->detach();
         return redirect()->back();
     }
 }

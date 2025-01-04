@@ -13,10 +13,10 @@ class Formula extends Model
         'id'
     ];
 
-    public function brandProduct()
-    {
-        return $this->belongsToMany(brandsProduct::class);
-    }
+    // public function brandProduct()
+    // {
+    //     return $this->belongsToMany(brandsProduct::class);
+    // }
 
 
     public function Material()
