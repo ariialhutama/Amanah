@@ -29,4 +29,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('/material', MaterialController::class);
     Route::resource('/brand', BrandController::class);
     Route::resource('/formula', FormulaController::class);
+    Route::post('/hitung', [FormulaController::class], 'amount');
 });

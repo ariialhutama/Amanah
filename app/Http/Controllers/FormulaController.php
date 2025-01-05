@@ -70,25 +70,40 @@ class FormulaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(formula $formula)
+    public function show(formula $formula, Request $request)
     {
         $formulas = Formula::findOrFail($formula->id);
         $total = 0;
         $total = $formula->Material->sum('concentration');
         $total_amount = $formula->Material->sum('concentration') / 100;
 
-
-        $hitung = $formula->Material->sum('concentration') / 100;
+        $pot = $request->pot;
+        $sub_amount = $request->sub_amount;
+        // $hitung = $pot * ($formula->Material->concentration)/100;
+        // $hitung = $request->pot * ($formula->Material->concentration)/100;
                
         return view('pages.formula.detail', [
 
             'formulas' => $formulas,
             'total' => $total,
             'total_amount' => $total_amount,
-            'hitung' => $hitung
+            // 'hitung' => $hitung
 
 
         ]);
+    }
+
+    public function amount(Request $request, Formula $formula){
+        $pot = $request->pot;
+        $sub_amount = $request->sub_amount;
+        
+        $hitung = $pot * $sub_amount;
+        return view('pages.formula.detail')
+        ->with('hitung', $hitung)
+        ->with('pot', $pot)
+        ->with('sub_amount', $sub_amount);
+
+        
     }
 
     /**

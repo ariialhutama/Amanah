@@ -50,6 +50,7 @@
 										{{-- @php
 											$total = SUM($material->concentration);
 										@endphp --}}
+
 										@foreach ($formulas->Material as $material)
 											<tr>
 												<td>{{ $loop->iteration }}</td>
@@ -58,8 +59,10 @@
 													{{ $material->name }}
 												</td>
 												<td>{{ $material->concentration }} %</td>
-												<td>{{ $material->concentration / 100 }} g</td>
-												<td>{{ $hitung }} g</td>
+												<td name="sub_amount" value="{{ isset($sub_amount) ? $sub_amount : '' }}">
+													{{ $material->concentration / 100 }} g</td>
+												<td value="0"></td>
+												{{-- <td name="hitung" value="{{ isset($hitung) ? $hitung : '' }}"></td> --}}
 											</tr>
 										@endforeach
 										<tr>
@@ -75,10 +78,22 @@
 									</table>
 								</div>
 								<div class="form-group mt-3">
-									<h6>Jumlah Pot</h6><input type="number" class="form-control" name="pot">
+									<form action="/hitung" method="post">
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										<h6>Jumlah Pot</h6><input type="number" class="form-control" name="pot"
+											value="{{ isset($pot) ? $pot : '0' }}">X
+										<h6>Jumlah Sub Amount</h6><input type="number" class="form-control" name="sub_amount"
+											value="{{ isset($sub_amount) ? $sub_amount : '' }}">
+										<h6>Hasil</h6><input type="number" class="form-control" name="hitung"
+											value="{{ isset($hitung) ? $hitung : '' }}">
+										{{-- <input type="submit" value="=">(proses) --}}
+										<button type="submit" value="proses" class="btn btn-success mt-3">Hitung</button>
+									</form>
 								</div>
+								<div class="float-right">
 
-								<a href="{{ route('formula.index') }}" class="btn btn-primary">Back</a>
+									<a href="{{ route('formula.index') }}" class="btn btn-primary">Back</a>
+								</div>
 							</div>
 						</div>
 					</div>
