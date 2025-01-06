@@ -26,16 +26,6 @@
                                 <h4>Detail Formula</h4>
                             </div>
                             <div class="card-body">
-                                {{-- <div class="float-left">
-                                    <div class="section-header-button">
-                                        <a href="{{ route('product.create') }}" class="btn btn-outline-primary">Add New
-                                            Products</a>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="float-right">
-
-                                </div> --}}
-
                                 <h5>{{ $formulas->name }}</h5>
                                 <div class="clearfix mb-3"></div>
                                 <div class="table-responsive">
@@ -47,47 +37,30 @@
                                             <th>Amount</th>
                                             <th>Sub Amount@pot</th>
                                         </tr>
-                                        {{-- @php
-											$total = SUM($material->concentration);
-										@endphp --}}
-
                                         @foreach ($formulas->Material as $material)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-
-                                                <td>
-                                                    {{ $material->name }}
-                                                </td>
+                                                <td>{{ $material->name }}</td>
                                                 <td>{{ $material->concentration }} %</td>
-                                                <td>{{ $material->concentration / 100 }} g</td>
-
-                                                <td id="hasil" onkeyup="hitung()"></td>
-
+                                                <td class="harga">{{ $material->concentration / 100 }} g</td>
+                                                <td class="total">0</td>
                                             </tr>
                                         @endforeach
                                         <tr>
                                             <th></th>
                                             <th></th>
                                             <th>Total : {{ $total }} %</th>
-                                            <th>Total Amount : {{ $total_amount }} g </th>
-                                            {{-- @php
-													$total = 0;
-												@endphp --}}
-
+                                            <th>Amount : {{ $total_amount }} g </th>
+                                            <th id="total-harga"></th>
                                         </tr>
                                     </table>
                                 </div>
                                 <div class="form-group mt-3">
-
-
                                     <h6>Jumlah Pot</h6>
-                                    <input id="pot" onkeyup="hitung()" type="number" class="form-control"
-                                        name="pot">
-
-
+                                    <input type="number" class="form-control" id="jumlah" value="">
+                                    <button onclick="kalikan()" class="btn btn-success mt-3">Hitung</button>
                                 </div>
                                 <div class="float-right">
-
                                     <a href="{{ route('formula.index') }}" class="btn btn-primary">Back</a>
                                 </div>
                             </div>
@@ -96,11 +69,32 @@
                 </div>
             </div>
         </section>
-    @endsection
-
-    @push('scripts')
     </div>
+@endsection
 
+@push('scripts')
+    <script>
+        function kalikan() {
+            // Ambil nilai jumlah dari input
+            const jumlah = document.getElementById('jumlah').value;
+            // Ambil semua elemen dengan class 'harga' yang ada di dalam tabel
+            const hargaElements = document.querySelectorAll('.harga');
+            const totalElements = document.querySelectorAll('.total');
+            let totalPerkalian = 0;
+            // Loop melalui setiap elemen harga dan hitung totalnya
+            for (let i = 0; i < hargaElements.length; i++) {
+                const harga = parseFloat(hargaElements[i].innerText); // Ambil harga dan ubah menjadi angka
+                const total = harga * jumlah; // Kalikan harga dengan jumlah
+                totalElements[i].innerText = total + ' g'; // Masukkan total ke kolom Total
+
+                totalPerkalian += total;
+
+                document.getElementById('total-harga').textContent = 'Sub Amount : ' +
+                    totalPerkalian + ' g';
+            }
+        }
+        kalikan();;
+    </script>
     <!-- JS Libraies -->
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 

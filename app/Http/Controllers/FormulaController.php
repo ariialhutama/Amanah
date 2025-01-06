@@ -78,14 +78,15 @@ class FormulaController extends Controller
         $total_amount = $formula->Material->sum('concentration') / 100;
 
         return view('pages.formula.detail', [
-
             'formulas' => $formulas,
             'total' => $total,
             'total_amount' => $total_amount,
+
         ]);
     }
 
     /**
+
      * Show the form for editing the specified resource.
      */
     public function edit(formula $formula)
