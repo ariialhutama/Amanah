@@ -76,37 +76,16 @@ class FormulaController extends Controller
         $total = 0;
         $total = $formula->Material->sum('concentration');
         $total_amount = $formula->Material->sum('concentration') / 100;
-
-        $pot = $request->pot;
-        $sub_amount = $request->sub_amount;
-        // $hitung = $pot * ($formula->Material->concentration)/100;
-        // $hitung = $request->pot * ($formula->Material->concentration)/100;
+         
                
         return view('pages.formula.detail', [
-
             'formulas' => $formulas,
             'total' => $total,
             'total_amount' => $total_amount,
-            // 'hitung' => $hitung
-
-
-        ]);
+         ]);
     }
 
-    public function amount(Request $request, Formula $formula){
-        $pot = $request->pot;
-        $sub_amount = $request->sub_amount;
-        
-        $hitung = $pot * $sub_amount;
-        return view('pages.formula.detail')
-        ->with('hitung', $hitung)
-        ->with('pot', $pot)
-        ->with('sub_amount', $sub_amount);
-
-        
-    }
-
-    /**
+        /**
      * Show the form for editing the specified resource.
      */
     public function edit(formula $formula)
