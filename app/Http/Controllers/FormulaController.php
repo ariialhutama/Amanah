@@ -73,9 +73,20 @@ class FormulaController extends Controller
     public function show(formula $formula, Request $request)
     {
         $formulas = Formula::findOrFail($formula->id);
+        $materials = Material::all();
         $total = 0;
-        $total = $formula->Material->sum('concentration');
-        $total_amount = $formula->Material->sum('concentration') / 100;
+        // $total = $formula->Material->sum('concentration');
+
+
+        // $total = $formula->pivot->sum('concentration') ?: 0;
+        $total = $formula->Material->sum(function ($materials) {
+            return $materials->pivot->sum('concentration') ?? 0;
+        });
+        $total_amount = $formula->Material->sum(function ($materials) {
+            return $materials->pivot->sum('concentration') / 100 ?? 0;
+        });
+
+        // $total_amount = $formula->pivot->sum('concentration') / 100;
 
         return view('pages.formula.detail', [
             'formulas' => $formulas,
@@ -91,7 +102,15 @@ class FormulaController extends Controller
      */
     public function edit(formula $formula)
     {
-        //
+        $formulas = Formula::all();
+        $materials = Material::all();
+        $formulas = Formula::findOrFail($formula->id);
+        $formula_materials = $formulas->Material->pluck('id')->toArray();
+        return view('pages.formula.edit', [
+            'formulas' => $formulas,
+            'materials' => $materials,
+            'formula_materials' => $formula_materials
+        ]);
     }
 
     /**

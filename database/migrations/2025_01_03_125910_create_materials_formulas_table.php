@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('materials_formulas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('material_id')->constrained()->onDelete('cascade');
             $table->foreignId('formula_id')->constrained()->onDelete('cascade');
+            $table->foreignId('material_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('concentration')->default(0);
             $table->timestamps();
         });
     }

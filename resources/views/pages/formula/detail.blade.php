@@ -41,8 +41,8 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $material->name }}</td>
-                                                <td>{{ $material->concentration }} %</td>
-                                                <td class="harga">{{ $material->concentration / 100 }} g</td>
+                                                <td>{{ $material->pivot->concentration }} %</td>
+                                                <td class="harga">{{ $material->pivot->concentration / 100 }} g</td>
                                                 <td class="total">0</td>
                                             </tr>
                                         @endforeach

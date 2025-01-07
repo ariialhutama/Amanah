@@ -38,7 +38,7 @@ class MaterialController extends Controller
         //
         $validate = $request->validate([
             'name' => 'required',
-            'concentration' => 'required|integer',
+            // 'concentration' => 'required|integer',
         ]);
 
         DB::beginTransaction();

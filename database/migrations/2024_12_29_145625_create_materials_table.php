@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('concentration');
+            // $table->unsignedBigInteger('concentration');
             // $table->unsignedBigInteger('amount');
             // $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();

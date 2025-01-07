@@ -19,7 +19,7 @@ class MaterialFactory extends Factory
         return [
             //
             'name' => fake()->name(),
-            'concentration' => fake()->randomFloat(2, 0, 100),
+            // 'concentration' => fake()->randomFloat(2, 0, 100),
         ];
     }
 }

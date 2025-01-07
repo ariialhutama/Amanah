@@ -21,6 +21,7 @@ class Formula extends Model
 
     public function Material()
     {
-        return $this->belongsToMany(Material::class, 'materials_formulas');
+        return $this->belongsToMany(Material::class, 'materials_formulas')
+            ->withPivot('concentration');
     }
 }

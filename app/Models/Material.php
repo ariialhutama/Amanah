@@ -20,6 +20,7 @@ class Material extends Model
 
     public function Formula()
     {
-        return $this->belongsTo(Formula::class, 'materials_formulas');
+        return $this->belongsTo(Formula::class, 'materials_formulas')
+            ->withPivot('concentration');
     }
 }
