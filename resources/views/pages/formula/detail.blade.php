@@ -26,7 +26,15 @@
                                 <h4>Detail Formula</h4>
                             </div>
                             <div class="card-body">
-                                <h5>{{ $formulas->name }}</h5>
+                                <div class="float-right">
+                                    <div class="section-header-button">
+                                        <a href="{{ route('formula.create') }}" class="btn btn-primary">Add Const
+                                            </a>
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <h5>{{ $formulas->name }}</h5>
+                                </div>
                                 <div class="clearfix mb-3"></div>
                                 <div class="table-responsive">
                                     <table class="table-striped table">
