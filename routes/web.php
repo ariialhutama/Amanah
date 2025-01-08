@@ -29,5 +29,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('/brand', BrandController::class);
     Route::resource('/formula', FormulaController::class);
     // Route::post('/formula/{formula}', FormulaController::class, FormulaController@updateShow);
-    // Route::post('/formula/{formula}', [FormulaController::class, 'updateShow'])->name('updateShow');
+    // Route::post('/formula/updateShow/{formula}', [FormulaController::class, 'updateShow'])->name('formula.updateShow');
 });

@@ -27,8 +27,9 @@
 
             <div class="section-body">
                 <div class="card card-success">
-                    <form action="{{ route('formula.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('formula.update', $formula) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('put')
                         <div class="card-header">
                             <h4 class="section-title">Edit Formula</h4>
                         </div>
@@ -42,7 +43,7 @@
                                     @error('name')
                                          is-invalid
                                     @enderror"
-                                    name="name" value="{{ $formulas->name }}" autofocus>
+                                    name="name" value="{{ $formula->name }}" autofocus>
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -50,22 +51,21 @@
                                 @enderror
                             </div>
 
+
                             {{-- Material --}}
-                            <div class="form-group">
-                                <label>Material</label>
-                                <select class="form-control select2" multiple="multiple" name="material[]">
-                                    @foreach ($materials as $material)
-                                        <option value="{{ $material->id }}"
-                                            @if (in_array($material->id, $formula_materials)) selected @endif>{{ $material->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('material')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+                            <table class="table-striped table">
+                                @foreach ($materials as $material)
+                                    <tr>
+                                        <td><input {{ $material->value ? 'checked' : null }} data-id="{{ $material->id }}"
+                                                type="checkbox" class="material-enable"></td>
+                                        <td>{{ $material->name }}</td>
+                                        <td><input type="text" value="{{ $material->value ?? null }}"
+                                                {{ $material->value ? null : 'disabled' }} data-id="{{ $material->id }}"
+                                                name="materials[{{ $material->id }}]"
+                                                class="form-control material-concentration" placeholder="konsentrasi"></td>
+                                    </tr>
+                                @endforeach
+                            </table>
 
                         </div>
                         <div class="card-footer text-right">
@@ -81,6 +81,17 @@
 @endsection
 
 @push('scripts')
+    @parent
+    <script>
+        $('document').ready(function() {
+            $('.material-enable').on('click', function() {
+                let id = $(this).attr('data-id')
+                let enable = $(this).is(":checked")
+                $('.material-concentration[data-id="' + id + '"]').attr('disabled', !enable)
+                $('.material-concentration[data-id="' + id + '"]').val(null)
+            })
+        });
+    </script>
     <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
 @endpush

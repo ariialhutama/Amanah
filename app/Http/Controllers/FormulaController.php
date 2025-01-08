@@ -103,13 +103,19 @@ class FormulaController extends Controller
     {
         $formulas = Formula::findOrFail($formula->id);
         $materials = Material::all();
-        $total = 0;
+        // $total = 0;
+        // $materials = Material::findOrFail($materials->id);
+        $materials = Material::all();
 
+        // $data = $formula->Material->sum('concentration');
+        // $total = $materials->Formula->sum(function ($formulas) {
+        //     return $formulas->pivot->sum('concentration');
+        // });
         $total = $formulas->Material->sum(function ($materials) {
-            return $materials->pivot->sum('concentration') ?? 0;
+            return $materials->pivot->concentration;
         });
         $total_amount = $formulas->Material->sum(function ($materials) {
-            return $materials->pivot->sum('concentration') / 100 ?? 0;
+            return $materials->pivot->concentration / 100;
         });
 
         // $total_amount = $formula->pivot->sum('concentration') / 100;
@@ -118,11 +124,12 @@ class FormulaController extends Controller
             'formulas' => $formulas,
             'total' => $total,
             'total_amount' => $total_amount,
+            'materials' => $materials
 
         ]);
     }
 
-    public function updateShow(Request $request, Formula $formula) {}
+
 
     /**
 
@@ -132,21 +139,21 @@ class FormulaController extends Controller
     {
         // abort_if(
         //     Gate::denies('formula_edit'),
-        //     403,
+        //     HTTP_FORBIDDEN,
         //     '403 Forbidden'
         // );
 
         // $formula->load('Material');
 
-        // $materials = Material::get()->map(function ($material) use ($formula) {
-        //     $material->value = data_get($formula->Material->firstWhere('id', $material->id), 'pivot.concentration') ?? null;
-        //     return $material;
-        // });
+        $materials = Material::get()->map(function ($material) use ($formula) {
+            $material->value = data_get($formula->Material->firstWhere('id', $material->id), 'pivot.concentration') ?? null;
+            return $material;
+        });
 
-        // return view('pages.formula.edit', [
-        //     'formula' => $formula,
-        //     'materials' => $materials
-        // ]);
+        return view('pages.formula.edit', [
+            'formula' => $formula,
+            'materials' => $materials
+        ]);
     }
     // public function edit(Formula $formula)
     // {
@@ -164,22 +171,39 @@ class FormulaController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    public function updateShow(Request $request, Formula $formula)
+    {
+        $data = $request->validate([
+            // 'name' => 'required|string|max:255',
+            'materials.*' => 'string',
+            'materials' => 'required|array'
+        ]);
+
+
+        $formula->update($data);
+        $formula->Material()->sync($this->mapMaterials($data['materials']));
+
+
+        // $formula->Material()->sync($this->mapMaterials($data['materials']));
+
+        return redirect()->route('formula.index');
+    }
     public function update(Request $request, Formula $formula)
     {
-        $validated = $request->validate([
-            'material' => 'required|exists:materials,id',
-            'concentration' => 'required',
-        ]);
-
-        $material = Material::find($validated['material']);
-
-        $material->Formula()->updateExistingPivot($validated['material'], [
-            'concentration' => $validated['concentration']
-
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'materials.*' => 'string',
+            'materials' => 'required|array'
         ]);
 
 
-        return redirect()->route('formula.show')->with(key: 'added', value: true);
+        $formula->update($data);
+        $formula->Material()->sync($this->mapMaterials($data['materials']));
+
+
+        // $formula->Material()->sync($this->mapMaterials($data['materials']));
+
+        return redirect()->route('formula.index');
     }
     // public function update(Request $request, Formula $formula)
     // {

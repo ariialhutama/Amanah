@@ -94,26 +94,30 @@
                 <form id="modal-konsentrasi" method="POST" action="{{ route('formula.update', $formulas) }}">
                     @csrf
                     @method('put')
-                    <div class="form-group">
-                        <div class="float-left">
-                            <label>Nama Material</label>
-                            @foreach ($formulas->Material as $material)
-                                <div class="input-group">
-                                    <input type="text" class="form-control mb-2" name="material" id="material"
-                                        value="{{ $material->name }}">
-                                </div>
-                            @endforeach
+
+                    <div class="table-striped table">
+                        <div class="form-group">
+                            <div class="float-left">
+                                <label>Nama Material</label>
+                                @foreach ($formulas->Material as $material)
+                                    <div class="input-group">
+                                        <input type="text" class="form-control mb-2" name="material" id="material"
+                                            value="{{ $material->name }}">
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="float-right">
-                            <label>Konsentrasi</label>
-                            @foreach ($formulas->Material as $material)
-                                <div class="input-group">
-                                    <input type="number" class="form-control mb-2" name="concentration"
-                                        id="concentration" value="{{ $material->pivot->concentration }}">
-                                </div>
-                            @endforeach
+                        <div class="form-group">
+                            <div class="float-right">
+                                <label>Konsentrasi</label>
+                                @foreach ($formulas->Material as $material)
+                                    <div class="input-group">
+                                        <input type="number" class="form-control mb-2"
+                                            name="materials[{{ $material->id }}]"
+                                            value="{{ $material->pivot->concentration }}">
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                     <div class="float-right mt-3">
@@ -129,6 +133,16 @@
 
 
 @push('scripts')
+    <script>
+        $('document').ready(function() {
+            $('.material-enable').on('click', function() {
+                let id = $(this).attr('data-id')
+                let enable = $(this).is(":checked")
+                $('.material-concentration[data-id="' + id + '"]').attr('disabled', !enable)
+                $('.material-concentration[data-id="' + id + '"]').val(null)
+            })
+        });
+    </script>
     <script>
         function kalikan() {
             // Ambil nilai jumlah dari input
