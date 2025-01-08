@@ -71,7 +71,7 @@ $("#modal-5").fireModal({
     },
     buttons: [
         {
-            text: "Updated",
+            text: "Updated ",
             submit: true,
             class: "btn btn-primary btn-shadow",
             handler: function (modal) {},

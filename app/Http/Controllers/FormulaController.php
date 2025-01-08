@@ -6,8 +6,10 @@ use App\Models\BrandProduct;
 use App\Models\Formula;
 use App\Models\Material;
 use App\Models\Product;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
 class FormulaController extends Controller
@@ -47,42 +49,66 @@ class FormulaController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255',
+            'materials.*' => 'string',
+            'materials' => 'required|array'
         ]);
-        DB::beginTransaction();
-        try {
 
-            $newvalidated = Formula::create($validated);
 
-            $newvalidated->Material()->attach($request->material);
-            DB::commit();
-            return redirect()->route('formula.index')->with(key: 'added', value: true);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            $error = ValidationException::withMessages([
-                'system_error' => ['System error!' . $e->getMessage()],
-            ]);
-            throw $error;
-        }
+        $formula = Formula::create($data);
+        $materials = collect($request->input('materials', []))->map(function ($material) {
+            return ['concentration' => $material];
+        });
+
+        $formula->Material()->sync($materials);
+        // $formula->Material()->sync($this->mapMaterials($data['materials']));
+
+        return redirect()->route('formula.index');
     }
+
+    public function mapMaterials($materials)
+    {
+        return collect($materials)->map(function ($i) {
+            return ['concentration' => $i];
+        });
+    }
+
+    // public function store(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //     ]);
+    //     DB::beginTransaction();
+    //     try {
+
+    //         $newvalidated = Formula::create($validated);
+
+    //         $newvalidated->Material()->attach($request->material);
+    //         DB::commit();
+    //         return redirect()->route('formula.index')->with(key: 'added', value: true);
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         $error = ValidationException::withMessages([
+    //             'system_error' => ['System error!' . $e->getMessage()],
+    //         ]);
+    //         throw $error;
+    //     }
+    // }
 
     /**
      * Display the specified resource.
      */
-    public function show(formula $formula, Request $request)
+    public function show(Formula $formula, Request $request)
     {
         $formulas = Formula::findOrFail($formula->id);
         $materials = Material::all();
         $total = 0;
-        // $total = $formula->Material->sum('concentration');
 
-
-        // $total = $formula->pivot->sum('concentration') ?: 0;
-        $total = $formula->Material->sum(function ($materials) {
+        $total = $formulas->Material->sum(function ($materials) {
             return $materials->pivot->sum('concentration') ?? 0;
         });
-        $total_amount = $formula->Material->sum(function ($materials) {
+        $total_amount = $formulas->Material->sum(function ($materials) {
             return $materials->pivot->sum('concentration') / 100 ?? 0;
         });
 
@@ -96,30 +122,82 @@ class FormulaController extends Controller
         ]);
     }
 
+    public function updateShow(Request $request, Formula $formula) {}
+
     /**
 
      * Show the form for editing the specified resource.
      */
-    public function edit(formula $formula)
+    public function edit(Formula $formula)
     {
-        $formulas = Formula::all();
-        $materials = Material::all();
-        $formulas = Formula::findOrFail($formula->id);
-        $formula_materials = $formulas->Material->pluck('id')->toArray();
-        return view('pages.formula.edit', [
-            'formulas' => $formulas,
-            'materials' => $materials,
-            'formula_materials' => $formula_materials
-        ]);
+        // abort_if(
+        //     Gate::denies('formula_edit'),
+        //     403,
+        //     '403 Forbidden'
+        // );
+
+        // $formula->load('Material');
+
+        // $materials = Material::get()->map(function ($material) use ($formula) {
+        //     $material->value = data_get($formula->Material->firstWhere('id', $material->id), 'pivot.concentration') ?? null;
+        //     return $material;
+        // });
+
+        // return view('pages.formula.edit', [
+        //     'formula' => $formula,
+        //     'materials' => $materials
+        // ]);
     }
+    // public function edit(Formula $formula)
+    // {
+    //     $formulas = Formula::all();
+    //     $materials = Material::all();
+    //     $formulas = Formula::findOrFail($formula->id);
+    //     $formula_materials = $formulas->Material->pluck('id')->toArray();
+    //     return view('pages.formula.edit', [
+    //         'formulas' => $formulas,
+    //         'materials' => $materials,
+    //         'formula_materials' => $formula_materials
+    //     ]);
+    // }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, formula $formula)
+    public function update(Request $request, Formula $formula)
     {
-        //
+        $validated = $request->validate([
+            'material' => 'required|exists:materials,id',
+            'concentration' => 'required',
+        ]);
+
+        $material = Material::find($validated['material']);
+
+        $material->Formula()->updateExistingPivot($validated['material'], [
+            'concentration' => $validated['concentration']
+
+        ]);
+
+
+        return redirect()->route('formula.show')->with(key: 'added', value: true);
     }
+    // public function update(Request $request, Formula $formula)
+    // {
+    //     $validated = $request->validate([
+    //         'material' => 'required|exists:materials,id',
+    //         'concentration' => 'required',
+    //     ]);
+
+    //     $material = Material::find($validated['material']);
+
+    //     $material->Formula()->updateExistingPivot($validated['material'], [
+    //         'concentration' => $validated['concentration']
+
+    //     ]);
+
+
+    //     return redirect()->route('formula.show')->with(key: 'added', value: true);
+    // }
 
     /**
      * Remove the specified resource from storage.

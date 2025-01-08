@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('formula_id')->constrained()->onDelete('cascade');
             $table->foreignId('material_id')->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('concentration')->default(0);
+            $table->string('concentration');
             $table->timestamps();
         });
     }
