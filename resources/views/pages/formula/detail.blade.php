@@ -91,11 +91,26 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="modal-konsentrasi" method="POST" action="{{ route('formula.update', $formulas) }}">
+                <form id="modal-konsentrasi" method="POST" action="{{ route('formula.punten', $formulas) }}">
                     @csrf
                     @method('put')
-
                     <div class="table-striped table">
+                        {{-- Name --}}
+                        <div class="form-group">
+                            <label>Name Formula</label>
+                            <input type="text"
+                                class="form-control
+                                  @error('name')
+                                     is-invalid
+                                 @enderror"
+                                name="name" value="{{ $formulas->name }}" autofocus>
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
                         <div class="form-group">
                             <div class="float-left">
                                 <label>Nama Material</label>
@@ -128,9 +143,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 @push('scripts')
     <script>

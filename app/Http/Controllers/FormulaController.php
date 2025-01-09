@@ -155,39 +155,11 @@ class FormulaController extends Controller
             'materials' => $materials
         ]);
     }
-    // public function edit(Formula $formula)
-    // {
-    //     $formulas = Formula::all();
-    //     $materials = Material::all();
-    //     $formulas = Formula::findOrFail($formula->id);
-    //     $formula_materials = $formulas->Material->pluck('id')->toArray();
-    //     return view('pages.formula.edit', [
-    //         'formulas' => $formulas,
-    //         'materials' => $materials,
-    //         'formula_materials' => $formula_materials
-    //     ]);
-    // }
 
     /**
      * Update the specified resource in storage.
      */
-    public function updateShow(Request $request, Formula $formula)
-    {
-        $data = $request->validate([
-            // 'name' => 'required|string|max:255',
-            'materials.*' => 'string',
-            'materials' => 'required|array'
-        ]);
 
-
-        $formula->update($data);
-        $formula->Material()->sync($this->mapMaterials($data['materials']));
-
-
-        // $formula->Material()->sync($this->mapMaterials($data['materials']));
-
-        return redirect()->route('formula.index');
-    }
     public function update(Request $request, Formula $formula)
     {
         $data = $request->validate([
@@ -204,6 +176,23 @@ class FormulaController extends Controller
         // $formula->Material()->sync($this->mapMaterials($data['materials']));
 
         return redirect()->route('formula.index');
+    }
+    public function punten(Request $request, Formula $formula)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'materials.*' => 'string',
+            'materials' => 'required|array'
+        ]);
+
+
+        $formula->update($data);
+        $formula->Material()->sync($this->mapMaterials($data['materials']));
+
+
+        // $formula->Material()->sync($this->mapMaterials($data['materials']));
+
+        return redirect()->route('product.index');
     }
     // public function update(Request $request, Formula $formula)
     // {

@@ -67,7 +67,8 @@
                                                 <td>
                                                     <ul>
                                                         @foreach ($product->Category as $category)
-                                                            <li>{{ $category->name }}</li>
+                                                            <a href=""
+                                                                class="badge badge-primary">{{ $category->name }}</a>
                                                         @endforeach
                                                     </ul>
                                                     {{-- {{ $product->Category->name }} --}}

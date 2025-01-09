@@ -34,10 +34,11 @@
                                 </div>
                                 <div class="float-right">
                                     <select class="form-control selectric">
-                                        <option>Action For Selected</option>
-                                        <option>Move to Draft</option>
-                                        <option>Move to Pending</option>
-                                        <option>Delete Pemanently</option>
+                                        <option>-- Pilih Formula --</option>
+                                        @foreach ($formulas as $formula)
+                                            <option value="{{ $formula->id }}">{{ $formula->name }}</option>
+                                        @endforeach
+
                                     </select>
                                 </div>
 
