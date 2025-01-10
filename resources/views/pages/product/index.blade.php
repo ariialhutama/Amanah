@@ -67,7 +67,7 @@
                                                 <td>
                                                     <ul>
                                                         @foreach ($product->Category as $category)
-                                                            <a href=""
+                                                            <a href="{{ route('formula.index') }}"
                                                                 class="badge badge-primary">{{ $category->name }}</a>
                                                         @endforeach
                                                     </ul>

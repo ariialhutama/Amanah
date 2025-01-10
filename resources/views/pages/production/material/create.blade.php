@@ -46,7 +46,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Concentration</label>
                                 <input type="number"
                                     class="form-control
@@ -59,7 +59,7 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>

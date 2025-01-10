@@ -78,6 +78,34 @@
 @endsection
 
 @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="text"]');
+
+            // Fungsi untuk memindahkan fokus input
+            function moveFocus(e) {
+                const currentIndex = Array.from(inputs).indexOf(document.activeElement);
+
+                if (e.key === "ArrowDown") {
+                    // Pindah ke input berikutnya jika ada
+                    if (currentIndex < inputs.length - 1) {
+                        inputs[currentIndex + 1].focus();
+                    }
+                } else if (e.key === "ArrowUp") {
+                    // Pindah ke input sebelumnya jika ada
+                    if (currentIndex > 0) {
+                        inputs[currentIndex - 1].focus();
+                    }
+                }
+            }
+
+            // Tambahkan event listener pada setiap input
+            inputs.forEach(input => {
+                input.addEventListener('keydown', moveFocus);
+            });
+        });
+    </script>
+
     @parent
     <script>
         $('document').ready(function() {
