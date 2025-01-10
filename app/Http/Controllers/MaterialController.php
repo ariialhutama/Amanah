@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\MaterialImport;
 use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialController extends Controller
 {
@@ -87,15 +89,13 @@ class MaterialController extends Controller
     {
         $material->delete();
         return redirect()->back();
-        // try {
-        //     $material->delete();
-        //     return redirect()->back();
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     $error = ValidationException::withMessages([
-        //         'system_error' => ['System error!', $e->getMessage()],
-        //     ]);
-        //     throw $error;
-        // }
+      
+    }
+
+    public function import_material(Request $request)
+    {
+    //   dd($request->all());
+    Excel::import(new MaterialImport, $request->file('file'));
+    return redirect()->back();
     }
 }

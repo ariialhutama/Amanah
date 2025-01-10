@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/product', ProductController::class);
     Route::resource('/user', UserController::class);
     Route::resource('/material', MaterialController::class);
+    Route::post('/material/import-proses', [MaterialController::class, 'import_material'])->name('material.import-proses');
     Route::resource('/brand', BrandController::class);
     Route::resource('/formula', FormulaController::class);
     Route::post('/formula/{formula}', [FormulaController::class, 'punten'])->name('formula.punten');

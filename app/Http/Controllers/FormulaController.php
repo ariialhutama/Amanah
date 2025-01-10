@@ -6,11 +6,10 @@ use App\Models\BrandProduct;
 use App\Models\Formula;
 use App\Models\Material;
 use App\Models\Product;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\ValidationException;
+
+
+
 
 class FormulaController extends Controller
 {
