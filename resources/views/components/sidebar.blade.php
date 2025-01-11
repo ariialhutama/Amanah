@@ -19,24 +19,24 @@
                 </a>
             </li>
             <li class="menu-header">Production</li>
-            <li class="nav-item dropdown {{ Request::is('production') ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ Request::is('production') || Request::is('material') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Production</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ Request::is('production') ? 'active' : '' }}'>
+                    <li class='{{ Route::currentRouteName() == 'production.index' ? 'active' : '' }}'>
                         <a class="nav-link" href="{{ route('production.index') }}">Perhitungan</a>
                     </li>
 
-                    <li class='{{ Request::is('material') ? 'active' : '' }}'>
+                    {{-- <li class='{{ Route::currentRouteName() == 'material.index' ? 'active' : '' }}'>
                         <a class="nav-link" href="{{ route('material.index') }}">Daftar Material</a>
+                    </li> --}}
+                    <li class='{{ Request::is('material') ? 'active' : '' }}'>
+                        <a class="nav-link" href="{{ route('material.index') }}">Daftar formula</a>
                     </li>
-                    {{-- <li class='{{ Request::is('material') ? 'active' : '' }}'>
-						<a class="nav-link" href="{{ route('material.index') }}">Daftar formula</a>
-					</li> --}}
                 </ul>
             </li>
 
             <li class="menu-header">Brands</li>
-            <li class="{{ Request::is('brand') ? 'active' : '' }}">
+            <li class="{{ Route::currentRouteName() == 'brand.index' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('brand.index') }}"><i class="fa-solid fa-pencil-ruler">
                     </i> <span>Brand</span>
                 </a>

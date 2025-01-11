@@ -14,12 +14,15 @@ class MaterialController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        $material = Material::paginate(5);
+        $materials = DB::table('materials')
+            ->where('name', 'like', '%' . $request->search . '%')
+            ->paginate(5);
+        // $material = Material::paginate(5);
         return view('pages.production.material.index', [
-            'material_products' => $material,
+            'material_products' => $materials,
+            // 'materials' => $materials
         ]);
     }
 
@@ -89,13 +92,12 @@ class MaterialController extends Controller
     {
         $material->delete();
         return redirect()->back();
-      
     }
 
     public function import_material(Request $request)
     {
-    //   dd($request->all());
-    Excel::import(new MaterialImport, $request->file('file'));
-    return redirect()->back();
+        //   dd($request->all());
+        Excel::import(new MaterialImport, $request->file('file'));
+        return redirect()->back();
     }
 }

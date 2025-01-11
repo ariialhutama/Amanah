@@ -26,13 +26,25 @@
             </div>
 
             <div class="section-body">
+
                 <div class="card card-success">
-                    <form action="{{ route('formula.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="card-header">
-                            <h4 class="section-title">Input Formula</h4>
-                        </div>
-                        <div class="card-body">
+
+                    <div class="card-header">
+                        <h4 class="section-title">Input Formula</h4>
+                    </div>
+                    <div class="float-right mb-2">
+                        <form method="GET" action="{{ route('formula.create') }}">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('formula.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             {{-- Name --}}
                             <div class="form-group">
                                 <label>Name Formula</label>
@@ -50,7 +62,7 @@
                             </div>
 
                             {{-- Material --}}
-                            <table class="table-striped table">
+                            <table class="table-striped table ">
                                 @foreach ($materials as $material)
                                     <tr>
                                         <td><input {{ $material->value ? 'checked' : null }} data-id="{{ $material->id }}"
@@ -64,11 +76,11 @@
                                 @endforeach
                             </table>
 
-                        </div>
-                        <div class="card-footer text-right">
-                            <a href="{{ route('formula.index') }}" class="btn btn-secondary">Back</a>
-                            <button class="btn btn-primary">Submit</button>
-                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <a href="{{ route('formula.index') }}" class="btn btn-secondary">Back</a>
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
                     </form>
                 </div>
 

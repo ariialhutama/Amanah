@@ -7,9 +7,7 @@ use App\Models\Formula;
 use App\Models\Material;
 use App\Models\Product;
 use Illuminate\Http\Request;
-
-
-
+use Illuminate\Support\Facades\DB;
 
 class FormulaController extends Controller
 {
@@ -32,10 +30,13 @@ class FormulaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
         $formulas = Formula::all();
+        $materials = DB::table('materials')
+            ->where('name', 'like', '%' . $request->search . '%');
+
         $materials = Material::all();
         return view('pages.formula.create', [
             'products' => $formulas,
