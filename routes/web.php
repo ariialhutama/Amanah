@@ -17,9 +17,9 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/home', function () {
-        return view('/dashboard');
-    });
+    // Route::get('/home', function () {
+    //     return view('/dashboard');
+    // });
 
     Route::resource('/production', ProductionController::class);
     Route::resource('/category', CategoryController::class);

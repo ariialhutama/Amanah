@@ -12,6 +12,6 @@ class FormulaSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Formula::factory()->count(10)->create();
+        \App\Models\Formula::factory()->count(5)->create();
     }
 }

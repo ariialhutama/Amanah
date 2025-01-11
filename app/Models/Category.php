@@ -20,4 +20,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Product::class, 'Products__Categories');
     }
+
+    public function Formula()
+    {
+        return $this->hasMany(Formula::class);
+    }
 }

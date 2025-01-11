@@ -13,8 +13,13 @@ class Brand extends Model
         'id',
     ];
 
-    public function products()
+    public function Product()
     {
         return $this->belongsToMany(Product::class,'brands_products');
+    }
+
+    public function Production()
+    {
+        return $this->hasMany(Production::class);
     }
 }

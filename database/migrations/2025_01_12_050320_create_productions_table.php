@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('productions', function (Blueprint $table) {
             $table->id();
             // $table->string('name_formula');
-            // $table->foreignId('brand_id')->constrained()->onDelete('cascade');
+            $table->foreignId('brand_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('formula_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

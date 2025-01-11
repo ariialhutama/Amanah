@@ -19,9 +19,20 @@ class Formula extends Model
     // }
 
 
+
     public function Material()
     {
         return $this->belongsToMany(Material::class, 'materials_formulas')
             ->withPivot('concentration');
+    }
+
+    public function Category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function Production()
+    {
+        return $this->hasMany(Production::class);
     }
 }
