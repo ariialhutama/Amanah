@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\BrandProduct;
 use App\Models\Formula;
 use App\Models\Material;
@@ -18,11 +19,13 @@ class FormulaController extends Controller
     {
         //
         $material = Material::all();
+        $product = Product::all();
+        $brand=Brand::all();
         // $brandProduct = BrandProduct::all();
         $formulas = Formula::paginate(5);
         return view('pages.formula.index', [
             'formulas' => $formulas,
-            // 'brandProduct' => $brandProduct,
+            
             'material' => $material,
         ]);
     }

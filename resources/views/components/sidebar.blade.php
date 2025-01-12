@@ -23,7 +23,7 @@
 				<a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Production</span></a>
 				<ul class="dropdown-menu">
 					<li class='{{ Route::currentRouteName() == 'production.index' ? 'active' : '' }}'>
-						<a class="nav-link" href="{{ route('production.index') }}">Perhitungan</a>
+						<a class="nav-link" href="{{ route('production.index') }}">List Production</a>
 					</li>
 
 					{{-- <li class='{{ Route::currentRouteName() == 'material.index' ? 'active' : '' }}'>
