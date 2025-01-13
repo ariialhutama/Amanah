@@ -49,7 +49,11 @@
 										<tr>
 											<th>Nama Brand</th>
 											<th>Nama Product</th>
-											<th>Created At</th>
+											<th>Jumlah</th>
+											<th>Kemasan</th>
+											<th>Berat_Isi</th>
+											<th>Status</th>
+											<th>Tanggal Produksi</th>
 											<th>Action</th>
 										</tr>
 										@forelse ($productions as $production)

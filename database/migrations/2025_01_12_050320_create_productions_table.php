@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('productions', function (Blueprint $table) {
             $table->id();
-            // $table->string('name_formula');
+            $table->integer('quantity');
+            $table->string('packaging');
+            $table->string('content_weight');
+            $table->date('production_date');
+            $table->enum('status', ['pending', 'approved','on-progress','rejected'])->default('pending');
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('formula_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('formula_id')->constrained()->onDelete('cascade');
+
             $table->timestamps();
         });
     }

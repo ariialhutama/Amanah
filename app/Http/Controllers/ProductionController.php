@@ -38,7 +38,13 @@ class ProductionController extends Controller
      */
     public function create()
     {
-        //
+        $brand=Brand::all();
+        $product = Product::all();
+
+        return view('pages.production.listProduction.create',[
+            'brands' => $brand,
+            'products' => $product
+        ]);
     }
 
     /**
