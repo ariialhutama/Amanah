@@ -61,21 +61,24 @@ class ProductionController extends Controller
             'packaging' => 'required',
             'content_weight' => 'required',
             'status' => 'required',
-            'production_date' => 'required|date',
+            'production_date' => 'required|string',
         ]);
-        dd($validated);
-        // DB::beginTransaction();
-        // try {
-        //     $newvalidated = Production::create($validated);
-        //     DB::commit();
-        //     return redirect()->route('production.index')->with(key: 'added', value: true);
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     $error = ValidationException::withMessages([
-        //         'system_error' => ['System error!' . $e->getMessage()],
-        //     ]);
-        //     throw $error;
-        // }
+        list($starDate, $endDate) = explode(' - ', $validated['production_date']);
+        $validated['start_date'] = $starDate;
+        $validated['end_date'] = $endDate;
+        // dd($validated);
+        DB::beginTransaction();
+        try {
+            $newvalidated = Production::create($validated);
+            DB::commit();
+            return redirect()->route('production.index')->with(key: 'added', value: true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $error = ValidationException::withMessages([
+                'system_error' => ['System error!' . $e->getMessage()],
+            ]);
+            throw $error;
+        }
     }
 
     /**

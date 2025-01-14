@@ -30,5 +30,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('/brand', BrandController::class);
     Route::resource('/formula', FormulaController::class);
     Route::post('/formula/{formula}', [FormulaController::class, 'punten'])->name('formula.punten');
-    // Route::post('/formula/{formula}', FormulaController::class, FormulaController@updateShow);
+    
 });

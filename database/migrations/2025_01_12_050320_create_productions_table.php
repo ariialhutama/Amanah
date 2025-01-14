@@ -16,7 +16,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('packaging');
             $table->string('content_weight');
-            $table->date('production_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->enum('status', ['pending', 'approved','on-progress','rejected'])->default('pending');
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
