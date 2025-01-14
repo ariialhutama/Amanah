@@ -8,6 +8,8 @@ use App\Models\Material;
 use App\Models\Product;
 use App\Models\Production;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class ProductionController extends Controller
 {
@@ -20,7 +22,7 @@ class ProductionController extends Controller
         $formulas = Formula::all();
         $materials = Material::all();
         $product = Product::all();
-        $brand=Brand::all();
+        $brand = Brand::all();
         $Production = Production::all();
         // $formula = Formula::findOrFail($formula->id);
         return view('pages.production.listProduction.index', [
@@ -38,10 +40,10 @@ class ProductionController extends Controller
      */
     public function create()
     {
-        $brand=Brand::all();
+        $brand = Brand::all();
         $product = Product::all();
 
-        return view('pages.production.listProduction.create',[
+        return view('pages.production.listProduction.create', [
             'brands' => $brand,
             'products' => $product
         ]);
@@ -52,7 +54,28 @@ class ProductionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'brand_id' => 'required|integer',
+            'product_id' => 'required|integer',
+            'quantity' => 'required',
+            'packaging' => 'required',
+            'content_weight' => 'required',
+            'status' => 'required',
+            'production_date' => 'required|date',
+        ]);
+        dd($validated);
+        // DB::beginTransaction();
+        // try {
+        //     $newvalidated = Production::create($validated);
+        //     DB::commit();
+        //     return redirect()->route('production.index')->with(key: 'added', value: true);
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     $error = ValidationException::withMessages([
+        //         'system_error' => ['System error!' . $e->getMessage()],
+        //     ]);
+        //     throw $error;
+        // }
     }
 
     /**
