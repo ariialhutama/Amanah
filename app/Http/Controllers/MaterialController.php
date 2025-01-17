@@ -18,7 +18,7 @@ class MaterialController extends Controller
     {
         $materials = DB::table('materials')
             ->where('name', 'like', '%' . $request->search . '%')
-            ->paginate(5);
+            ->paginate(10);
         // $material = Material::paginate(5);
         return view('pages.production.material.index', [
             'material_products' => $materials,
